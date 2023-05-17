@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { HStack, Text } from 'native-base';
 import React, { useCallback } from 'react';
 import UploadIcon from '../../../components/icons/UploadIcon';
 import DashboardBoxAction from './BoxAction';
