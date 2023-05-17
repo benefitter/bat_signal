@@ -32,21 +32,21 @@ const NoDocumentsView = () => {
 };
 
 export default function DashboardRecentlyUploaded() {
-  const uploadtedDocuments = reverse([...useSelector(getUploadedDocuments)]);
-  const hasDocuments = uploadtedDocuments.length > 0;
+  const uploadedDocuments = reverse([...useSelector(getUploadedDocuments)]);
+  const hasDocuments = uploadedDocuments.length > 0;
 
   const DashboardRecentlyUploadedItem = (
     props: IDashboardRecentlyUploadedItemProps,
   ) => {
     const { document } = props;
-
-    let relativeDate = formatDistance(
-      parseISO(document.uploadedAt),
-      new Date(),
-      {
+    let relativeDate = '';
+    try {
+      relativeDate = formatDistance(parseISO(document.uploadedAt), new Date(), {
         addSuffix: true,
-      },
-    );
+      });
+    } catch (error) {
+      relativeDate = 'just now';
+    }
 
     relativeDate = relativeDate.replace('minute', 'min');
     relativeDate = relativeDate.replace('hour', 'hr');
@@ -73,10 +73,10 @@ export default function DashboardRecentlyUploaded() {
           Recently Uploaded
         </Text>
 
-        {uploadtedDocuments.map((document, index) => {
+        {uploadedDocuments.map((document, index) => {
           return (
             <DashboardRecentlyUploadedItem
-              key={document.id}
+              key={document.id || index}
               document={document}
             />
           );
