@@ -12,13 +12,11 @@ export default function ScanDocumentBtn() {
   }, []);
 
   return (
-    <DashboardBoxAction onPress={navigateToScreen}>
-      <VStack alignItems="center" space={6}>
-        <CameraIcon size={20} />
-        <Text color="white" fontSize="xl">
-          Scan Documents
-        </Text>
-      </VStack>
-    </DashboardBoxAction>
+    <DashboardBoxAction
+      onPress={navigateToScreen}
+      title="Scan"
+      description="Use your camera to take a picture from a paper document."
+      icon={<CameraIcon size={10} />}
+    />
   );
 }

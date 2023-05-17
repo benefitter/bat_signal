@@ -1,54 +1,52 @@
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 import {
-  HStack,
   NativeBaseProvider,
-  Switch,
-  Text,
-  extendTheme,
-  useColorMode,
-  useColorModeValue,
+  useColorModeValue
 } from 'native-base';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native';
+import theme from './config/theme.config';
 import AppRoute from './routes/AppRoute';
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
   const backgroundColor = useColorModeValue('white', 'darkblue');
-  const theme = extendTheme({
-    colors: {
-      uhcBlue: {
-        600: '#002660',
-        700: '#002666',
-        800: '#002670',
-        900: '#002676',
-      },
-    },
-    config: {
-      initialColorMode: 'light',
-    },
-  });
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await Font.loadAsync({
+          UHCSams: require('./assets/fonts/UHC-Sans-OTF/UHCSans-Medium.otf'),
+          UHCSamsSemiBold: require('./assets/fonts/UHC-Sans-OTF/UHCSans-SemiBold.otf'),
+          UHCSamsBold: require('./assets/fonts/UHC-Sans-OTF/UHCSans-Bold.otf'),
+          UHCSerifSemiBold: require('./assets/fonts/UHC-Serif-OTF/UHCSerifHeadline-Semibold.otf'),
+        });
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) await SplashScreen.hideAsync();
+  }, [appIsReady]);
+
+  if (!appIsReady) return null;
+
   return (
     <NativeBaseProvider theme={theme}>
-      <SafeAreaView style={{ height: '100%', backgroundColor }}>
+      <SafeAreaView
+        style={{ height: '100%', backgroundColor }}
+        onLayout={onLayoutRootView}
+      >
         <AppRoute />
       </SafeAreaView>
     </NativeBaseProvider>
-  );
-}
-
-// Color Switch Component
-function ToggleDarkMode() {
-  const { colorMode, toggleColorMode } = useColorMode();
-  return (
-    <HStack space={2} alignItems="center">
-      <Text>Dark</Text>
-      <Switch
-        isChecked={colorMode === 'light'}
-        onToggle={toggleColorMode}
-        aria-label={
-          colorMode === 'light' ? 'switch to dark mode' : 'switch to light mode'
-        }
-      />
-      <Text>Light</Text>
-    </HStack>
   );
 }
