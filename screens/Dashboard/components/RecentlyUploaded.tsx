@@ -50,12 +50,13 @@ export default function DashboardRecentlyUploaded() {
 
     relativeDate = relativeDate.replace('minute', 'min');
     relativeDate = relativeDate.replace('hour', 'hr');
+    if (relativeDate.includes('less')) relativeDate = 'just now';
 
     return (
       <HStack space="3" alignItems="center">
         <DocumentIcon size={8} />
-        <VStack flexGrow={1}>
-          <Text>{document.type}</Text>
+        <VStack flexGrow={1} flexShrink={1}>
+          <Text isTruncated>{document.type}</Text>
           {!!document.description && (
             <Text color="uhcGray.600">{document.description}</Text>
           )}

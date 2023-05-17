@@ -119,7 +119,7 @@ export default function Describe({ navigation }: IScreenProps) {
           bold
           color={formIsReady ? 'white' : 'uhcGray.500'}
           fontSize="lg"
-          py={2}
+          py={1}
         >
           Submit to UHC portal
         </Text>
