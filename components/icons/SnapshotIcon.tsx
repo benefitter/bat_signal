@@ -8,7 +8,7 @@ export default function SnapshotIcon(props: ICustomIconProps) {
     viewBox: '0 0 67 67',
     path: (
       <Svg>
-        <Circle cx="33.5" cy="33.5" r="31" stroke="white" strokeWidth="5"/>
+        <Circle cx="33.5" cy="33.5" r="31" stroke="white" strokeWidth="5" fill="#002670"/>
         <Circle cx="33.5" cy="33.5" r="21.5" fill="white"/>
       </Svg>
     ),
