@@ -1,6 +1,5 @@
-import { Box, HStack, Text, VStack } from 'native-base';
+import { HStack, Pressable, Text, VStack } from 'native-base';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 
 interface IDashboardBoxActionProps {
   onPress: () => void;
@@ -12,7 +11,7 @@ interface IDashboardBoxActionProps {
 export default function DashboardBoxAction(props: IDashboardBoxActionProps) {
   const { onPress, title, description, icon } = props;
   return (
-    <TouchableOpacity onPress={onPress}>
+    <Pressable onPress={onPress}>
       <VStack
         bg="uhcBlue.800"
         shadow={3}
@@ -39,6 +38,6 @@ export default function DashboardBoxAction(props: IDashboardBoxActionProps) {
           {description}
         </Text>
       </VStack>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
