@@ -1,9 +1,11 @@
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 type RootStackParamList = {
-  Dasboard: undefined;
+  Dashboard: { success: boolean };
 };
+type ScreenRouteProp = RouteProp<RootStackParamList, 'Dashboard'>;
 
 export default interface IScreenProps {
   navigation: NavigationProp<RootStackParamList>;
+  route: ScreenRouteProp;
 }

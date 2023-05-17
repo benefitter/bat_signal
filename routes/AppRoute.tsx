@@ -22,6 +22,7 @@ export default function AppRoute() {
               component={Submission}
               options={{ presentation: 'modal' }}
             />
+            <Stack.Screen name="Submission" component={Submission} />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>
