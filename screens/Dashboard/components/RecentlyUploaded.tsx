@@ -7,9 +7,14 @@ const DashboardRecentlyUploadedItem = () => {
   return (
     <HStack space="3" alignItems="center">
       <DocumentIcon size={8} />
-      <Text fontSize="xl" flexGrow={1}>
-        File Name
-      </Text>
+      <VStack  flexGrow={1}>
+        <Text>
+          File Name
+        </Text>
+        <Text color="uhcGray.600">
+          File Description
+        </Text>
+      </VStack>
       <Text fontSize="xl" color="uhcGray.500">
         2h ago
       </Text>
