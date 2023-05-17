@@ -18,6 +18,9 @@ export default function ScanDocumentBtn() {
         <Text color="white" fontSize="xl">
           Scan Documents
         </Text>
+        <Text color="white" fontSize="s">
+          Use your camera to take a picture of a paper document
+        </Text>
       </VStack>
     </DashboardBoxAction>
   );
