@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from 'native-base';
+import { Button, Flex, Text, VStack } from 'native-base';
 import React, { useCallback } from 'react';
 import CameraComp from '../../components/Camera/CameraComp';
 import LayoutHeader from '../../components/layout/Header/Index';
@@ -16,10 +16,9 @@ export default function Describe({ navigation }: IScreenProps) {
     <LayoutPage>
       <Flex align="center" flex={1}>
         <LayoutHeader title="Take a Picture" showClose />
-        <Box flexGrow={1}>
-          <Text>Camera</Text>
-        </Box>
-        <CameraComp />
+        <VStack flexGrow={1} space={4} width="100%" justifyContent="center">
+          <CameraComp />
+        </VStack>
         <Button
           size="lg"
           bgColor="uhcBlue.900"

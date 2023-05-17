@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
+    
   },
   buttonContainer: {
     flex: 1,
