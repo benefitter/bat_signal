@@ -1,13 +1,12 @@
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import {
-  NativeBaseProvider,
-  useColorModeValue
-} from 'native-base';
+import { NativeBaseProvider, useColorModeValue } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native';
 import theme from './config/theme.config';
 import AppRoute from './routes/AppRoute';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,13 +39,15 @@ export default function App() {
   if (!appIsReady) return null;
 
   return (
-    <NativeBaseProvider theme={theme}>
-      <SafeAreaView
-        style={{ height: '100%', backgroundColor }}
-        onLayout={onLayoutRootView}
-      >
-        <AppRoute />
-      </SafeAreaView>
-    </NativeBaseProvider>
+    <Provider store={store}>
+      <NativeBaseProvider theme={theme}>
+        <SafeAreaView
+          style={{ height: '100%', backgroundColor }}
+          onLayout={onLayoutRootView}
+        >
+          <AppRoute />
+        </SafeAreaView>
+      </NativeBaseProvider>
+    </Provider>
   );
 }
