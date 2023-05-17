@@ -4,6 +4,7 @@ import CameraComp from '../../components/Camera/CameraComp';
 import LayoutHeader from '../../components/layout/Header/Index';
 import LayoutPage from '../../components/layout/Page/Index';
 import IScreenProps from '../../types/IScreenProps';
+import SnapshotIcon from '../../components/icons/SnapshotIcon';
 
 // This is CAMERA SCREEN
 export default function Describe({ navigation }: IScreenProps) {
@@ -25,10 +26,10 @@ export default function Describe({ navigation }: IScreenProps) {
           bgColor="uhcBlue.900"
           onPress={navigateToScreen}
           w="100%"
+          roundedBottom="none"
+          borderRadius={10}
         >
-          <Text bold color="white" fontSize="lg" py={1}>
-            Take picture
-          </Text>
+          <SnapshotIcon size={20} />
         </Button>
       </Flex>
     </LayoutPage>
