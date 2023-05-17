@@ -7,7 +7,7 @@ export default function Index({ navigation }: IScreenProps) {
   const navigateToScreen = useCallback(() => {
     navigation.reset({
       index: 0,
-      routes: [{ name: `Dashboard` as never }],
+      routes: [{ name: `Dashboard` as never, params: { success: true }} ],
     });
   }, []);
 
