@@ -1,5 +1,5 @@
-import { Box, CloseIcon, HStack, Pressable, Text } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
+import { Box, CloseIcon, Flex, Pressable, Text } from 'native-base';
 import { useCallback } from 'react';
 
 interface ILayoutHeaderProps {
@@ -20,14 +20,20 @@ export default function LayoutHeader(props: ILayoutHeaderProps) {
   }, []);
 
   return (
-    <HStack
+    <Flex
       my={6}
-      space={2}
+      direction="row"
       justifyContent="space-between"
       alignItems="center"
       width="100%"
     >
-      <Text fontFamily="UHCSerifSemiBold" fontSize="4xl" color="uhcBlue.900">
+      <Text
+        fontFamily="UHCSerifSemiBold"
+        fontSize="3xl"
+        lineHeight="sm"
+        color="uhcBlue.900"
+        mr={4}
+      >
         {title}
       </Text>
       {showUser && (
@@ -38,10 +44,10 @@ export default function LayoutHeader(props: ILayoutHeaderProps) {
         </Box>
       )}
       {showClose && (
-        <Pressable onPress={navigateToDashboard}>
-          <CloseIcon color="black" size={18} />
+        <Pressable onPress={navigateToDashboard} mr={2}>
+          <CloseIcon color="uhcGray.600" size={18} />
         </Pressable>
       )}
-    </HStack>
+    </Flex>
   );
 }

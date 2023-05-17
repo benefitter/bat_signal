@@ -1,4 +1,4 @@
-import { ScrollView, useColorModeValue } from 'native-base';
+import { View, useColorModeValue } from 'native-base';
 import React from 'react';
 
 interface ILayoutPageProps {
@@ -8,12 +8,8 @@ interface ILayoutPageProps {
 export default function LayoutPage(props: ILayoutPageProps) {
   const backgroundColor = useColorModeValue('white', 'darkblue');
   return (
-    <ScrollView
-      px={4}
-      contentContainerStyle={{ flexGrow: 1 }}
-      style={{ backgroundColor }}
-    >
+    <View px={4} style={{ backgroundColor }} h={"100%"}>
       {props.children}
-    </ScrollView>
+    </View>
   );
 }
