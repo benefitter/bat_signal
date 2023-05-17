@@ -12,13 +12,11 @@ export default function BrowseLibraryBtn() {
   }, []);
 
   return (
-    <DashboardBoxAction onPress={navigateToScreen}>
-      <HStack alignItems="center" space={6}>
-        <UploadIcon size={12} />
-        <Text color="white" fontSize="xl">
-          Browse Library
-        </Text>
-      </HStack>
-    </DashboardBoxAction>
+    <DashboardBoxAction
+      onPress={navigateToScreen}
+      title="Browse"
+      description="Upload a file from your device library."
+      icon={<UploadIcon size={12} />}
+    />
   );
 }

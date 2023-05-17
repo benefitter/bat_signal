@@ -1,4 +1,4 @@
-import { CloseIcon, HStack, Pressable, Text } from 'native-base';
+import { Box, CloseIcon, HStack, Pressable, Text } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { useCallback } from 'react';
 
@@ -9,10 +9,9 @@ interface ILayoutHeaderProps {
 }
 
 export default function LayoutHeader(props: ILayoutHeaderProps) {
-  const { title, showUser, showClose } = props;
-
   const navigation = useNavigation();
 
+  const { title, showUser, showClose } = props;
   const navigateToDashboard = useCallback(() => {
     navigation.reset({
       index: 0,
@@ -28,11 +27,19 @@ export default function LayoutHeader(props: ILayoutHeaderProps) {
       alignItems="center"
       width="100%"
     >
-      <Text fontSize="4xl">{title}</Text>
-      {showUser && <Text>LM</Text>}
+      <Text fontFamily="UHCSerifSemiBold" fontSize="4xl" color="uhcBlue.900">
+        {title}
+      </Text>
+      {showUser && (
+        <Box bgColor="uhcBrightBlue.900" p={2} rounded="full">
+          <Text color="white" bold>
+            HS
+          </Text>
+        </Box>
+      )}
       {showClose && (
         <Pressable onPress={navigateToDashboard}>
-          <CloseIcon color="#000" size={18} />
+          <CloseIcon color="black" size={18} />
         </Pressable>
       )}
     </HStack>
