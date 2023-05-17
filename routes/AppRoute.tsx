@@ -17,11 +17,6 @@ export default function AppRoute() {
             <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen name="Describe" component={Describe} />
             <Stack.Screen name="Camera" component={Camera} />
-            <Stack.Screen
-              name="Submission"
-              component={Submission}
-              options={{ presentation: 'modal' }}
-            />
             <Stack.Screen name="Submission" component={Submission} />
           </Stack.Group>
         </Stack.Navigator>

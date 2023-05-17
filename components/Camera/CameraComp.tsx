@@ -69,12 +69,12 @@ export default function App() {
     <View style={styles.container}>
       <Camera ref={cameraRef} style={styles.camera} type={type} >
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
+          {/* <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
             <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={takePic}>
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity style={styles.button} onPress={takePic}>
             <Text style={styles.text}>Take Picture</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </Camera>
     </View>
@@ -85,10 +85,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center'
   },
   camera: {
-    flex: 1,
-    
+    height: 471,
+    width: 307
   },
   buttonContainer: {
     flex: 1,
