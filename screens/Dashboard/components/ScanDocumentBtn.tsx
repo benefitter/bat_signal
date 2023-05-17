@@ -8,7 +8,7 @@ export default function ScanDocumentBtn() {
   const navigation = useNavigation();
 
   const navigateToScreen = useCallback(() => {
-    navigation.navigate('Describe' as never);
+    navigation.navigate('Camera' as never);
   }, []);
 
   return (
