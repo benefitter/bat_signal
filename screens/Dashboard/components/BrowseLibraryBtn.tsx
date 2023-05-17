@@ -1,10 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
-import UploadIcon from '../../../components/icons/UploadIcon';
-import DashboardBoxAction from './BoxAction';
 import * as DocumentPicker from 'expo-document-picker';
+import { random } from 'lodash';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import UploadIcon from '../../../components/icons/UploadIcon';
+import { setSubmissionDoc } from '../../../store/slices/documentSlice';
+import DashboardBoxAction from './BoxAction';
 
 export default function BrowseLibraryBtn() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const navigateToScreen = useCallback(() => {
@@ -16,8 +20,16 @@ export default function BrowseLibraryBtn() {
       const result = await DocumentPicker.getDocumentAsync();
 
       if (result.type === 'success') {
-        console.log('File URI:', result.uri);
-        console.log('File name:', result.name);
+        dispatch(
+          setSubmissionDoc({
+            id: `${random(999999, 999999999)}`,
+            name: result.name,
+            type: '',
+            description: '',
+            uploadedAt: new Date().toISOString(),
+          }),
+        );
+
         navigateToScreen();
       }
     } catch (error) {

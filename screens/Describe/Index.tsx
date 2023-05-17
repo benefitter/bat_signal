@@ -5,14 +5,20 @@ import {
   Input,
   ScrollView,
   Stack,
-  Text
+  Text,
 } from 'native-base';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import ChipList from '../../components/chipList/Index';
 import LayoutHeader from '../../components/layout/Header/Index';
 import LayoutPage from '../../components/layout/Page/Index';
 import RadioList from '../../components/radioList/Index';
 import fileCategories from '../../mockdata/fileCategories';
+import {
+  getSubmissionDoc,
+  setSubmissionDoc,
+} from '../../store/slices/documentSlice';
+import { IDocument } from '../../types/IDocument';
 import IScreenProps from '../../types/IScreenProps';
 
 const allCategoryTypes = fileCategories
@@ -20,14 +26,25 @@ const allCategoryTypes = fileCategories
   .flat();
 
 export default function Describe({ navigation }: IScreenProps) {
-  const navigateToScreen = useCallback(() => {
-    navigation.navigate('Submission' as never);
-  }, []);
+  const dispatch = useDispatch();
+  const submissionDocument = useSelector(getSubmissionDoc) as IDocument;
 
   const [category, setCategory] = useState<string | undefined>(undefined);
   const [typeOptions, setTypeOptions] = useState<string[]>(allCategoryTypes);
   const [type, setType] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string | undefined>(undefined);
+
+  const submitDocument = () => {
+    const document = {
+      id: submissionDocument.id,
+      name: submissionDocument.name,
+      type: type!,
+      description: description!,
+      uploadedAt: submissionDocument.uploadedAt,
+    };
+    dispatch(setSubmissionDoc(document));
+    navigation.navigate('Submission' as never);
+  };
 
   const onCategoryChange = useCallback(
     (value: string) => {
@@ -75,7 +92,6 @@ export default function Describe({ navigation }: IScreenProps) {
           />
         )}
       </ScrollView>
-
       <FormControl>
         <Stack>
           <FormControl.Label>Description</FormControl.Label>
@@ -95,7 +111,7 @@ export default function Describe({ navigation }: IScreenProps) {
         size="lg"
         w="100%"
         rounded="lg"
-        onPress={navigateToScreen}
+        onPress={submitDocument}
         disabled={!formIsReady}
         bgColor={formIsReady ? 'uhcBlue.900' : 'uhcGray.200'}
       >
