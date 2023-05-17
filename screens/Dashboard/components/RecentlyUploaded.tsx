@@ -1,6 +1,7 @@
 import { HStack, Text, VStack, View } from 'native-base';
 import React from 'react';
 import DocumentIcon from '../../../components/icons/DocumentIcon';
+import CloudUploadIcon from '../../../components/icons/CloudUploadIcon';
 
 const DashboardRecentlyUploadedItem = () => {
   return (
@@ -16,17 +17,42 @@ const DashboardRecentlyUploadedItem = () => {
   );
 };
 
-export default function DashboardRecentlyUploaded() {
-  return (
-    <View>
+const NoDocumentsView = () => {
+  return(
+    <HStack>
+      <CloudUploadIcon size={20} />
+      <Text
+        bold
+        fontSize="xl"
+        fontFamily="UHCSamsSemiBold">
+        Upload documents easily and safely to the UHC Portal
+      </Text>
+  </HStack>
+  );
+}
+
+const ListView = () => {
+  return(
+    <VStack space="2">
       <Text fontSize="xl" fontFamily="UHCSamsBold" mb={3}>
         Recently Uploaded
       </Text>
-      <VStack space="2">
-        <DashboardRecentlyUploadedItem />
-        <DashboardRecentlyUploadedItem />
-        <DashboardRecentlyUploadedItem />
-      </VStack>
+      <DashboardRecentlyUploadedItem />
+      <DashboardRecentlyUploadedItem />
+      <DashboardRecentlyUploadedItem />
+    </VStack>
+  );
+}
+
+export default function DashboardRecentlyUploaded() {
+  return (
+    <View>
+      {true &&
+        <NoDocumentsView />
+      }
+      {false &&
+        <ListView />
+      }
     </View>
   );
 }
