@@ -21,7 +21,7 @@ export default function SuccessToast() {
       <HStack space={2} flexShrink={1} alignItems="center">
         <CheckCircleIcon size="5" mt="0.5" color="#00BED5" />
         <Text fontSize="md" fontWeight="medium" flexShrink={1} color="darkText">
-          File Name Submitted!
+          Document Submitted!
         </Text>
       </HStack>
     </Box>
