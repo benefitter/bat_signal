@@ -44,7 +44,7 @@ export default function LayoutHeader(props: ILayoutHeaderProps) {
         </Box>
       )}
       {showClose && (
-        <Pressable onPress={navigateToDashboard} mr={2}>
+        <Pressable onPress={navigateToDashboard} mr={2} p={2}>
           <CloseIcon color="uhcGray.600" size={18} />
         </Pressable>
       )}

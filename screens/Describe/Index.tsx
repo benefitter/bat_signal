@@ -3,11 +3,12 @@ import {
   Button,
   FormControl,
   Input,
+  KeyboardAvoidingView,
   ScrollView,
   Stack,
   Text,
 } from 'native-base';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ChipList from '../../components/chipList/Index';
 import LayoutHeader from '../../components/layout/Header/Index';
@@ -20,6 +21,7 @@ import {
 } from '../../store/slices/documentSlice';
 import { IDocument } from '../../types/IDocument';
 import IScreenProps from '../../types/IScreenProps';
+import { Platform } from 'react-native';
 
 const allCategoryTypes = fileCategories
   .map((category) => category.types)
@@ -29,7 +31,7 @@ export default function Describe({ navigation }: IScreenProps) {
   const dispatch = useDispatch();
   const submissionDocument = useSelector(getSubmissionDoc) as IDocument;
 
-  const [category, setCategory] = useState<string | undefined>(undefined);
+  const [category, setCategory] = useState<string | undefined>();
   const [typeOptions, setTypeOptions] = useState<string[]>(allCategoryTypes);
   const [type, setType] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string | undefined>(undefined);
@@ -66,10 +68,8 @@ export default function Describe({ navigation }: IScreenProps) {
     return type;
   }, [type]);
 
-  return (
-    <LayoutPage>
-      <LayoutHeader title="Describe your document" showClose />
-
+  const chipPanels = useMemo(() => {
+    return (
       <Box>
         <ChipList
           value={category}
@@ -77,53 +77,75 @@ export default function Describe({ navigation }: IScreenProps) {
           options={fileCategories.map((category) => category.name)}
         />
       </Box>
-      <ScrollView
-        my={8}
-        borderColor="uhcGray.200"
-        borderWidth={2}
-        rounded="2xl"
-      >
-        {typeOptions.length > 0 && (
-          <RadioList
-            name="docType"
-            value={type}
-            setValue={(value) => setType(value)}
-            options={typeOptions}
-          />
-        )}
-      </ScrollView>
-      <FormControl>
-        <Stack>
-          <FormControl.Label>Description</FormControl.Label>
-          <Input
-            type="text"
-            placeholder="E.g. John Smith Form"
-            fontSize="lg"
-            py={3}
-            value={description}
-            onChange={(e) => setDescription(e.nativeEvent.text)}
-          />
-        </Stack>
-      </FormControl>
+    );
+  }, [category]);
 
-      <Button
-        mt={6}
-        size="lg"
-        w="100%"
-        rounded="lg"
-        onPress={submitDocument}
-        disabled={!formIsReady}
-        bgColor={formIsReady ? 'uhcBlue.900' : 'uhcGray.200'}
+  useEffect(() => {
+    const firstCategory = fileCategories[0];
+    setCategory(firstCategory.name);
+    setTypeOptions(firstCategory.types);
+  }, []);
+
+  const typesPanels = useMemo(() => {
+    if (typeOptions.length === 0) return <></>;
+    return (
+      <RadioList
+        name={category!}
+        value={type}
+        setValue={(value) => setType(value)}
+        options={typeOptions}
+      />
+    );
+  }, [typeOptions, type]);
+
+  return (
+    <LayoutPage>
+      <KeyboardAvoidingView
+        h="100%"
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <Text
-          bold
-          color={formIsReady ? 'white' : 'uhcGray.500'}
-          fontSize="lg"
-          py={1}
+        <LayoutHeader title="Describe your document" showClose />
+        {chipPanels}
+        <ScrollView
+          my={8}
+          borderColor="uhcGray.200"
+          borderWidth={2}
+          rounded="2xl"
         >
-          Submit to UHC portal
-        </Text>
-      </Button>
+          {typesPanels}
+        </ScrollView>
+        <FormControl>
+          <Stack>
+            <FormControl.Label>Description</FormControl.Label>
+            <Input
+              type="text"
+              placeholder="E.g. John Smith Form"
+              fontSize="lg"
+              py={3}
+              onBlur={(e) => setDescription(e.nativeEvent.text)}
+            />
+          </Stack>
+        </FormControl>
+
+        <Button
+          mt={6}
+          size="lg"
+          w="100%"
+          rounded="lg"
+          onPress={submitDocument}
+          disabled={!formIsReady}
+          bgColor={formIsReady ? 'uhcBlue.900' : 'uhcGray.200'}
+        >
+          <Text
+            bold
+            color={formIsReady ? 'white' : 'uhcGray.500'}
+            fontSize="lg"
+            py={1}
+          >
+            Submit to UHC portal
+          </Text>
+        </Button>
+      </KeyboardAvoidingView>
     </LayoutPage>
   );
 }
