@@ -10,11 +10,6 @@ interface IChipListProps {
 
 export default function RadioList(props: IChipListProps) {
   const { name, options, value, setValue } = props;
-  const [radioValue, setRadioValue] = useState(value);
-
-  useEffect(() => {
-    setRadioValue(value);
-  }, [value]);
 
   return (
     <Box overflow="hidden">
@@ -32,17 +27,18 @@ export default function RadioList(props: IChipListProps) {
 
           return (
             <Box
-              key={option}
               bgColor={bgColor}
-              width="100%"
-              px={4}
+              key={option}
+              pl={2}
               borderColor="uhcGray.200"
               borderBottomWidth={borderBottomWidth}
             >
-              <Radio value={option} my={1}>
-                <Text fontSize="md" py={3} pl={2} pr={8}>
-                  {option}
-                </Text>
+              <Radio value={option} ml={4}>
+                <Box width="100%" px={4} py={2}>
+                  <Text fontSize="md" py={3} pl={2} pr={8}>
+                    {option}
+                  </Text>
+                </Box>
               </Radio>
             </Box>
           );
