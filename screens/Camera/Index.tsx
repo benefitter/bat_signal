@@ -1,4 +1,4 @@
-import { Button, Flex, VStack, View, useColorModeValue } from 'native-base';
+import { Button, Flex, VStack, useColorModeValue } from 'native-base';
 import React, { useCallback } from 'react';
 import CameraComp from '../../components/Camera/CameraComp';
 import LayoutPage from '../../components/layout/Page/Index';
@@ -16,9 +16,9 @@ export default function Describe({ navigation }: IScreenProps) {
 
   return (
     <LayoutPage bgColor={'#a2a1a8'}>
-      <View mt={4} style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+      <Flex align="flex-end" mt={4} zIndex={10}>
         <CloseButton />
-      </View>
+      </Flex>
       <Flex align="center" height="96%">
         <VStack flexGrow={1} space={4} width="100%" justifyContent="center">
           <CameraComp />
@@ -30,6 +30,7 @@ export default function Describe({ navigation }: IScreenProps) {
           w="100%"
           roundedBottom="none"
           borderRadius={10}
+          mb="5"
         >
           <SnapshotIcon size={20} />
         </Button>
