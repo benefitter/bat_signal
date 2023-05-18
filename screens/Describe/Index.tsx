@@ -122,7 +122,7 @@ export default function Describe({ navigation }: IScreenProps) {
               placeholder="E.g. John Smith Form"
               fontSize="lg"
               py={3}
-              onBlur={(e) => setDescription(e.nativeEvent.text)}
+              onChange={(e) => setDescription(e.nativeEvent.text)}
             />
           </Stack>
         </FormControl>
