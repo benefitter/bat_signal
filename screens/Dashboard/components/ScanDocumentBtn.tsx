@@ -21,7 +21,7 @@ export default function ScanDocumentBtn() {
       }),
     );
 
-    navigation.navigate('Describe' as never);
+    navigation.navigate('Camera' as never);
   }, []);
 
   return (

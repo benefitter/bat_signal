@@ -1,6 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import { Box, CloseIcon, Flex, Pressable, Text } from 'native-base';
-import { useCallback } from 'react';
+import { Box, Flex, Text } from 'native-base';
+import CloseButton from '../../closeButton/Index';
 
 interface ILayoutHeaderProps {
   title: string;
@@ -9,16 +8,8 @@ interface ILayoutHeaderProps {
 }
 
 export default function LayoutHeader(props: ILayoutHeaderProps) {
-  const navigation = useNavigation();
-
   const { title, showUser, showClose } = props;
-  const navigateToDashboard = useCallback(() => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: `Dashboard` as never }],
-    });
-  }, []);
-
+  
   return (
     <Flex
       my={6}
@@ -44,9 +35,13 @@ export default function LayoutHeader(props: ILayoutHeaderProps) {
         </Box>
       )}
       {showClose && (
+<<<<<<< HEAD
         <Pressable onPress={navigateToDashboard} mr={2} p={2}>
           <CloseIcon color="uhcGray.600" size={18} />
         </Pressable>
+=======
+        <CloseButton/>
+>>>>>>> c2ab395066456505d6ca3ee11c04fa58aac507cf
       )}
     </Flex>
   );
