@@ -1,8 +1,7 @@
 import { Camera, Constants } from 'expo-camera';
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import * as MediaLibrary from 'expo-media-library';
-import { Image } from 'expo-image';
 
 export default function App() {
   let cameraRef = useRef(null);
@@ -57,7 +56,7 @@ export default function App() {
 
     return (
       <SafeAreaView style={styles.container}>
-        <Image  source={{ uri: photo.base64 }} style={styles.image}/>
+        <Image source={{ uri: photo.base64 }} style={styles.image}/>
         {/* <Image/> */}
         <Button title="Save" onPress={savePhoto} />
         <Button title="Discard" onPress={() => setPhoto(undefined)} />
@@ -67,16 +66,8 @@ export default function App() {
   
   return (
     <View style={styles.container}>
-      <Camera ref={cameraRef} style={styles.camera} type={type} >
-        <View style={styles.buttonContainer}>
-          {/* <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity> */}
-          {/* <TouchableOpacity style={styles.button} onPress={takePic}>
-            <Text style={styles.text}>Take Picture</Text>
-          </TouchableOpacity> */}
-        </View>
-      </Camera>
+      <Image source={require("../../assets/images/form.png")} style={styles.form_image} />
+      {/* <Camera ref={cameraRef} style={styles.camera} type={type} /> */}
     </View>
   );
 }
@@ -110,6 +101,10 @@ const styles = StyleSheet.create({
   image: {
     width: 640,
     height: 480,
+  },
+  form_image: {
+    resizeMode: "contain",
+    width: "90%"
   }
 });
 // function shareAsync(uri: any) {
