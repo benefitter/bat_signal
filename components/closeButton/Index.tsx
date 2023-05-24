@@ -13,7 +13,7 @@ export default function CloseButton() {
   }, []);
 
   return (
-    <Pressable onPress={navigateToDashboard} mr={2} p={2}>
+    <Pressable onPress={navigateToDashboard} mr={2} p={4}>
       <CloseIcon color="uhcGray.600" size={18} />
     </Pressable>
   );

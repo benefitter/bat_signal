@@ -22,6 +22,7 @@ import {
 import { IDocument } from '../../types/IDocument';
 import IScreenProps from '../../types/IScreenProps';
 import { Platform } from 'react-native';
+import { getActiveGroup } from '../../store/slices/groupSlice';
 
 const allCategoryTypes = fileCategories
   .map((category) => category.types)
@@ -35,6 +36,7 @@ export default function Describe({ navigation }: IScreenProps) {
   const [typeOptions, setTypeOptions] = useState<string[]>(allCategoryTypes);
   const [type, setType] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string | undefined>(undefined);
+  const activeGroup = useSelector(getActiveGroup);
 
   const submitDocument = () => {
     const document = {
@@ -43,6 +45,7 @@ export default function Describe({ navigation }: IScreenProps) {
       type: type!,
       description: description!,
       uploadedAt: submissionDocument.uploadedAt,
+      groupId: submissionDocument.groupId || activeGroup?.id!,
     };
     dispatch(setSubmissionDoc(document));
     navigation.navigate('Submission' as never);

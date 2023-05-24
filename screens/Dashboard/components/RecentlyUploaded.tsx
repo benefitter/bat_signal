@@ -1,38 +1,17 @@
-import { Box, HStack, Text, VStack } from 'native-base';
+import { formatDistance, parseISO } from 'date-fns';
+import { HStack, Text, VStack } from 'native-base';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import CloudUploadIcon from '../../../components/icons/CloudUploadIcon';
 import DocumentIcon from '../../../components/icons/DocumentIcon';
 import { getUploadedDocuments } from '../../../store/slices/documentSlice';
 import { IDocument } from '../../../types/IDocument';
-import { formatDistance, parseISO } from 'date-fns';
-import { reverse } from 'lodash';
+import NoGroupPlaceholder from './NoGroupPlaceholder';
 interface IDashboardRecentlyUploadedItemProps {
   document: IDocument;
 }
 
-const NoDocumentsView = () => {
-  return (
-    <HStack mx={4} justifyContent="space-between" alignItems="center">
-      <Box>
-        <CloudUploadIcon size={20} />
-      </Box>
-      <Text
-        fontSize="2xl"
-        lineHeight="xs"
-        fontFamily="UHCSamsSemiBold"
-        w="70%"
-        textAlign="center"
-        color="uhcGray.700"
-      >
-        Upload documents easily and safely to the UHC Portal
-      </Text>
-    </HStack>
-  );
-};
-
 export default function DashboardRecentlyUploaded() {
-  const uploadedDocuments = reverse([...useSelector(getUploadedDocuments)]);
+  const uploadedDocuments = useSelector(getUploadedDocuments);
   const hasDocuments = uploadedDocuments.length > 0;
 
   const DashboardRecentlyUploadedItem = (
@@ -87,7 +66,7 @@ export default function DashboardRecentlyUploaded() {
 
   return (
     <>
-      {!hasDocuments && <NoDocumentsView />}
+      {!hasDocuments && <NoGroupPlaceholder />}
       {hasDocuments && <ListView />}
     </>
   );

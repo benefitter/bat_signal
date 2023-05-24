@@ -6,13 +6,19 @@ import { useDispatch } from 'react-redux';
 import UploadIcon from '../../../components/icons/UploadIcon';
 import { setSubmissionDoc } from '../../../store/slices/documentSlice';
 import DashboardBoxAction from './BoxAction';
+import { IGroup } from '../../../types/IGroup';
 
-export default function BrowseLibraryBtn() {
+interface IBrowseLibraryBtnProps {
+  activeGroup: IGroup | undefined;
+}
+
+export default function BrowseLibraryBtn(props: IBrowseLibraryBtnProps) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const { activeGroup } = props;
 
   const navigateToScreen = useCallback(() => {
-    navigation.navigate('Describe' as never);
+    navigation.navigate('SelectGroupDocument' as never);
   }, []);
 
   const openDocumentPicker = async () => {
@@ -27,6 +33,7 @@ export default function BrowseLibraryBtn() {
             type: '',
             description: '',
             uploadedAt: new Date().toISOString(),
+            groupId: activeGroup?.id!,
           }),
         );
 
@@ -42,7 +49,7 @@ export default function BrowseLibraryBtn() {
       onPress={openDocumentPicker}
       title="Browse"
       description="Upload a file from your device library."
-      icon={<UploadIcon size={12} />}
+      icon={<UploadIcon size={8} />}
     />
   );
 }
