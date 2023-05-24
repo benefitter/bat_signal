@@ -1,18 +1,15 @@
-import { Button, Flex, VStack, useColorModeValue } from 'native-base';
+import { Button, Flex, VStack } from 'native-base';
 import React, { useCallback } from 'react';
 import CameraComp from '../../components/Camera/CameraComp';
+import CloseButton from '../../components/closeButton/Index';
+import SnapshotIcon from '../../components/icons/SnapshotIcon';
 import LayoutPage from '../../components/layout/Page/Index';
 import IScreenProps from '../../types/IScreenProps';
-import SnapshotIcon from '../../components/icons/SnapshotIcon';
-import CloseButton from '../../components/closeButton/Index';
 
-// This is CAMERA SCREEN
 export default function Describe({ navigation }: IScreenProps) {
   const navigateToScreen = useCallback(() => {
-    navigation.navigate('Describe' as never);
+    navigation.navigate('SelectGroupDocument' as never);
   }, []);
-
-  const backgroundColor = useColorModeValue('red', 'red');
 
   return (
     <LayoutPage bgColor={'#a2a1a8'}>

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IDocument } from '../../types/IDocument';
 import { RootState } from '../store';
-import { takeRight } from 'lodash';
+import { filter, reverse, takeRight } from 'lodash';
 
 interface DocumentsState {
   uploadedDocuments: IDocument[];
@@ -18,8 +18,7 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     saveDocument: (state, action: PayloadAction<IDocument>) => {
-      const recentDocs = takeRight(state.uploadedDocuments, 4);
-      state.uploadedDocuments = [...recentDocs, action.payload];
+      state.uploadedDocuments = [...state.uploadedDocuments, action.payload];
     },
     setSubmissionDoc: (state, action: PayloadAction<IDocument>) => {
       state.submissionDocument = action.payload;
@@ -29,8 +28,16 @@ export const appSlice = createSlice({
 
 export const { saveDocument, setSubmissionDoc } = appSlice.actions;
 
-export const getUploadedDocuments = (state: RootState) =>
-  state.document.uploadedDocuments;
+export const getUploadedDocuments = (state: RootState) => {
+  return reverse(
+    takeRight(
+      filter([...state.document.uploadedDocuments], {
+        groupId: state.group.activeGroup?.id!,
+      }),
+      4,
+    ),
+  );
+};
 
 export const getSubmissionDoc = (state: RootState) =>
   state.document.submissionDocument;

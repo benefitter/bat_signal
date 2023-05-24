@@ -4,26 +4,17 @@ import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 
 import documentReducer from './slices/documentSlice';
-// import authReducer from './slices/authSlice';
-// import findDocReducer from './slices/findDocSlice';
-// import docRecommReducer from './slices/docRecommSlice';
-// import myPlanReducer from './slices/myPlanSlice';
+import groupReducer from './slices/groupSlice';
 
 const persistConfig = { key: 'root', storage: AsyncStorage };
 
 // Wrap each slice reducer with persistReducer
 const persistedDocumentReducer = persistReducer(persistConfig, documentReducer);
-// const persistedAuthReducer = persistReducer(persistConfig, authReducer);
-// const persistedFindDocReducer = persistReducer(persistConfig, findDocReducer);
-// const persistedDocRecommReducer = persistReducer(persistConfig, docRecommReducer);
-// const persistedMyPlanReducer = persistReducer(persistConfig, myPlanReducer);
+const persistedGroupReducer = persistReducer(persistConfig, groupReducer);
 
 const rootReducer = combineReducers({
   document: persistedDocumentReducer,
-  // auth: persistedAuthReducer,
-  // findDoc: persistedFindDocReducer,
-  // docRecomm: persistedDocRecommReducer,
-  // myPlan: persistedMyPlanReducer,
+  group: persistedGroupReducer,
 });
 
 const store = configureStore({

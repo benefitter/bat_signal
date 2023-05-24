@@ -1,5 +1,5 @@
 import { Box, Radio, Text } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 interface IChipListProps {
   name: string;
@@ -32,10 +32,18 @@ export default function RadioList(props: IChipListProps) {
               pl={2}
               borderColor="uhcGray.200"
               borderBottomWidth={borderBottomWidth}
+              width="100%"
             >
               <Radio value={option} ml={4}>
-                <Box width="100%" px={4} py={2}>
-                  <Text fontSize="md" py={3} pl={2} pr={8}>
+                <Box px={4} py={2}>
+                  <Text
+                    fontSize="md"
+                    lineHeight="sm"
+                    py={3}
+                    pl={2}
+                    mr={8}
+                    width="90%"
+                  >
                     {option}
                   </Text>
                 </Box>

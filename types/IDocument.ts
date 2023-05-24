@@ -4,4 +4,5 @@ export interface IDocument {
   type: string;
   description: string;
   uploadedAt: string;
+  groupId: number;
 }

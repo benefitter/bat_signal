@@ -19,13 +19,12 @@ export default function DashboardBoxAction(props: IDashboardBoxActionProps) {
         py={4}
         px={5}
         h={40}
-        w="100%"
         justifyContent="space-between"
       >
         <HStack space="2" justifyContent="space-between" alignItems="center">
           <Text
             bold
-            fontSize="3xl"
+            fontSize="2xl"
             fontFamily="UHCSamsSemiBold"
             color="white"
             mt={2}
@@ -34,7 +33,7 @@ export default function DashboardBoxAction(props: IDashboardBoxActionProps) {
           </Text>
           {icon}
         </HStack>
-        <Text color="white" fontFamily="UHCSams" fontSize="xl" lineHeight="sm">
+        <Text color="white" fontFamily="UHCSams" lineHeight="sm">
           {description}
         </Text>
       </VStack>

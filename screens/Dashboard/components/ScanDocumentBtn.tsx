@@ -5,10 +5,16 @@ import { useDispatch } from 'react-redux';
 import CameraIcon from '../../../components/icons/CameraIcon';
 import { setSubmissionDoc } from '../../../store/slices/documentSlice';
 import DashboardBoxAction from './BoxAction';
+import { Box } from 'native-base';
+import { IGroup } from '../../../types/IGroup';
 
-export default function ScanDocumentBtn() {
+interface IScanDocumentBtnProps {
+  activeGroup: IGroup | undefined;
+}
+export default function ScanDocumentBtn(props: IScanDocumentBtnProps) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const { activeGroup } = props;
 
   const navigateToScreen = useCallback(() => {
     dispatch(
@@ -18,6 +24,7 @@ export default function ScanDocumentBtn() {
         type: '',
         description: '',
         uploadedAt: new Date().toISOString(),
+        groupId: activeGroup?.id!,
       }),
     );
 
@@ -25,11 +32,13 @@ export default function ScanDocumentBtn() {
   }, []);
 
   return (
-    <DashboardBoxAction
-      onPress={navigateToScreen}
-      title="Scan"
-      description="Use your camera to take a picture from a paper document."
-      icon={<CameraIcon size={10} />}
-    />
+    <Box bgColor="white">
+      <DashboardBoxAction
+        onPress={navigateToScreen}
+        title="Scan"
+        description="Use your camera to take a picture from a paper document."
+        icon={<CameraIcon size={8} />}
+      />
+    </Box>
   );
 }
