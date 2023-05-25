@@ -7,6 +7,7 @@ import UploadIcon from '../../../components/icons/UploadIcon';
 import { setSubmissionDoc } from '../../../store/slices/documentSlice';
 import DashboardBoxAction from './BoxAction';
 import { IGroup } from '../../../types/IGroup';
+import axios from 'axios';
 
 interface IBrowseLibraryBtnProps {
   activeGroup: IGroup | undefined;
@@ -37,6 +38,31 @@ export default function BrowseLibraryBtn(props: IBrowseLibraryBtnProps) {
           }),
         );
 
+        setTimeout(async () => {
+          const base64Data = await convertFileToBase64(result.uri);
+
+          const res = await axios.post(`http://localhost:3000/benefitter/secure_files/upload`, {
+            // file: result.file,
+            file: base64Data,
+            // filename: result.name,
+            filename: "pdf-test.pdf",
+            prefix: 'underwriting',
+            convert_to_pdf: false,
+            uuid: true,
+          })
+
+          let doc = {
+            id: generateGuid(),
+            filename: result.name,
+            url: res.data.url,
+            notes: 'UnitedCloud test upload',
+          }
+          let uploadUrl = `http://localhost:3000/benefitter/allsavers_underwriting/646e5315a6bbb1afa246270e/upload_supporting_doc`
+          axios.post(uploadUrl, doc)
+
+        }, 10)
+
+
         navigateToScreen();
       }
     } catch (error) {
@@ -53,3 +79,26 @@ export default function BrowseLibraryBtn(props: IBrowseLibraryBtnProps) {
     />
   );
 }
+
+
+function generateGuid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (
+    c
+  ) {
+    var r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
+async function convertFileToBase64(fileUri = '') {
+  const fileContent = await fetch(fileUri);
+  const fileBlob = await fileContent.blob();
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(fileBlob);
+  });
+};

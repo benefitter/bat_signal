@@ -16,8 +16,9 @@ import LayoutPage from '../../components/layout/Page/Index';
 import groupMock from '../../mockdata/groupMock';
 import { getActiveGroup, getRecentGroups } from '../../store/slices/groupSlice';
 import GroupsNav from './components/GroupsNav';
+import useGroups from '../../hooks/useGroups';
 
-const nearYou = sampleSize(groupMock, 1);
+let nearYou = sampleSize(groupMock, 1);
 
 interface ISelectGroupProps {
   fromDocumentProcess?: boolean;
@@ -32,10 +33,19 @@ export default function SelectGroup(props: ISelectGroupProps) {
   const activeGroup = useSelector(getActiveGroup);
   const recentGroups = useSelector(getRecentGroups);
 
+  let groupData = groupMock;
+
+  const { data, isLoading, isSuccess } = useGroups();
+  if (isSuccess && data) {
+    // console.log('got data', data)
+    groupData = data;
+    nearYou = sampleSize(groupData, 1);
+  }
+
   useEffect(() => {
     if (!query) return setFilteredGroups([]);
     const groups = sortBy(
-      groupMock.filter((company) => {
+      groupData.filter((company) => {
         return company.name.toLowerCase().includes(query.toLowerCase());
       }),
       ['name'],

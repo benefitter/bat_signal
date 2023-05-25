@@ -7,8 +7,11 @@ import theme from './config/theme.config';
 import AppRoute from './routes/AppRoute';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -45,7 +48,9 @@ export default function App() {
           style={{ height: '100%', backgroundColor }}
           onLayout={onLayoutRootView}
         >
-          <AppRoute />
+          <QueryClientProvider client={queryClient}>
+            <AppRoute />
+          </QueryClientProvider>
         </SafeAreaView>
       </NativeBaseProvider>
     </Provider>
