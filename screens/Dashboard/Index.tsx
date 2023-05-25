@@ -6,7 +6,7 @@ import IScreenProps from '../../types/IScreenProps';
 import DashboardBackground from './components/Background';
 import BrowseLibraryBtn from './components/BrowseLibraryBtn';
 import GroupPanel from './components/GroupPanel';
-import DasboardRecentlyUploaded from './components/RecentlyUploaded';
+import DashboardRecentlyUploaded from './components/RecentlyUploaded';
 import ScanDocumentBtn from './components/ScanDocumentBtn';
 import SuccessToast from './components/SuccessToast';
 import { useSelector } from 'react-redux';
@@ -33,7 +33,7 @@ export default function Dashboard(props: IScreenProps) {
 
   const footerPanel = useMemo(() => {
     if (activeGroup == undefined) return <NoGroupPlaceholder />;
-    if (activeGroup != undefined) return <DasboardRecentlyUploaded />;
+    if (activeGroup != undefined) return <DashboardRecentlyUploaded />;
   }, [activeGroup]);
 
   return (
